@@ -1,0 +1,1379 @@
+﻿<Window
+    x:Class="ModernImageViewer.Desktop.ToolboxWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="灵简图片助手 - 工具箱"
+    Icon="/Assets/LingJianImageAssistant.ico"
+    Width="980"
+    Height="660"
+    MinWidth="620"
+    MinHeight="480"
+    Background="#F4F4F5"
+    WindowStartupLocation="Manual"
+    FontFamily="Microsoft YaHei UI, Microsoft YaHei, PingFang SC, Hiragino Sans GB, Segoe UI">
+  <Window.Styles>
+    <Style Selector="Border.panel">
+      <Setter Property="Background" Value="#FFFFFF" />
+      <Setter Property="BorderBrush" Value="#00000000" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="CornerRadius" Value="14" />
+      <Setter Property="BoxShadow" Value="0 1 3 0 #0C000000, 0 4 12 0 #08000000" />
+    </Style>
+
+    <Style Selector="Border.section">
+      <Setter Property="Background" Value="#F9FAFB" />
+      <Setter Property="BorderBrush" Value="#F3F4F6" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="12" />
+    </Style>
+
+    <Style Selector="Border.metric">
+      <Setter Property="Background" Value="#ECFDF5" />
+      <Setter Property="BorderBrush" Value="#00000000" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="CornerRadius" Value="999" />
+      <Setter Property="BoxShadow" Value="0 1 2 0 #06000000" />
+    </Style>
+
+    <Style Selector="Border.viewport">
+      <Setter Property="Background" Value="#0C111D" />
+      <Setter Property="BorderBrush" Value="#00000000" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="CornerRadius" Value="12" />
+    </Style>
+
+    <Style Selector="Border.listItem">
+      <Setter Property="Background" Value="#FFFFFF" />
+      <Setter Property="BorderBrush" Value="#00000000" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="CornerRadius" Value="12" />
+      <Setter Property="BoxShadow" Value="0 1 2 0 #06000000" />
+      <Setter Property="Transitions">
+        <Transitions>
+          <BrushTransition Property="Background" Duration="0:0:0.18" />
+          <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.18" />
+        </Transitions>
+      </Setter>
+    </Style>
+
+    <Style Selector="ListBoxItem:pointerover Border.listItem">
+      <Setter Property="Background" Value="#F9FAFB" />
+      <Setter Property="BoxShadow" Value="0 2 6 0 #0C000000" />
+    </Style>
+
+    <Style Selector="ListBoxItem:selected Border.listItem">
+      <Setter Property="Background" Value="#F0F9FF" />
+      <Setter Property="BoxShadow" Value="0 2 8 0 #10000000, inset 0 0 0 1.5 #3B82F6" />
+    </Style>
+
+    <Style Selector="Border.toolbarSurface">
+      <Setter Property="Background" Value="#F9FAFB" />
+      <Setter Property="BorderBrush" Value="#F3F4F6" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="10" />
+    </Style>
+
+    <Style Selector="Border.quickSettings">
+      <Setter Property="Background" Value="#FFFFFF" />
+      <Setter Property="BorderBrush" Value="#00000000" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="CornerRadius" Value="16" />
+      <Setter Property="BoxShadow" Value="0 12 40 0 #1C000000, 0 2 6 0 #0A000000" />
+    </Style>
+
+    <Style Selector="Border.quickSettingsSurface">
+      <Setter Property="Background" Value="#F9FAFB" />
+      <Setter Property="BorderBrush" Value="#F3F4F6" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="12" />
+    </Style>
+
+    <Style Selector="Border.pageHero">
+      <Setter Property="Background" Value="#F0FDF4" />
+      <Setter Property="BorderBrush" Value="#D1FAE5" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="14" />
+    </Style>
+    <Style Selector="Border.separator">
+      <Setter Property="Background" Value="#F3F4F6" />
+      <Setter Property="Height" Value="1" />
+      <Setter Property="Margin" Value="0,4,0,4" />
+    </Style>
+    <Style Selector="Button.compact">
+      <Setter Property="Height" Value="30" />
+      <Setter Property="Padding" Value="12,4" />
+      <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style Selector="Button.toolbar">
+      <Setter Property="Height" Value="32" />
+      <Setter Property="MinWidth" Value="58" />
+      <Setter Property="Padding" Value="12,4" />
+      <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style Selector="Button.flyoutAction">
+      <Setter Property="Height" Value="36" />
+      <Setter Property="MinWidth" Value="86" />
+      <Setter Property="Padding" Value="12,4" />
+      <Setter Property="FontSize" Value="12.5" />
+    </Style>
+    <Style Selector="TextBlock.brandTitle">
+      <Setter Property="FontSize" Value="17" />
+      <Setter Property="FontWeight" Value="Bold" />
+      <Setter Property="Foreground" Value="#111827" />
+    </Style>
+
+    <Style Selector="TextBlock.heroText">
+      <Setter Property="FontSize" Value="12.5" />
+      <Setter Property="Foreground" Value="#6B7280" />
+    </Style>
+
+    <Style Selector="TextBlock.panelKicker">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="#9CA3AF" />
+    </Style>
+
+    <Style Selector="TextBlock.sectionTitle">
+      <Setter Property="FontSize" Value="15" />
+      <Setter Property="FontWeight" Value="Bold" />
+      <Setter Property="Foreground" Value="#111827" />
+    </Style>
+
+    <Style Selector="TextBlock.cardTitle">
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="#111827" />
+    </Style>
+
+    <Style Selector="TextBlock.label">
+      <Setter Property="FontSize" Value="12.5" />
+      <Setter Property="Foreground" Value="#6B7280" />
+    </Style>
+
+    <Style Selector="TextBlock.metricValue">
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="FontWeight" Value="Bold" />
+      <Setter Property="Foreground" Value="#059669" />
+    </Style>
+
+    <Style Selector="TextBlock.subtle">
+      <Setter Property="Foreground" Value="#6B7280" />
+    </Style>
+
+    <Style Selector="TextBlock.viewportMuted">
+      <Setter Property="Foreground" Value="#94A3B8" />
+    </Style>
+
+    <Style Selector="TextBlock.flyoutTitle">
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="FontWeight" Value="Bold" />
+      <Setter Property="Foreground" Value="#111827" />
+    </Style>
+
+    <Style Selector="TextBlock.flyoutHint">
+      <Setter Property="FontSize" Value="12.5" />
+      <Setter Property="Foreground" Value="#6B7280" />
+    </Style>
+    <Style Selector="ListBox">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style Selector="ListBoxItem">
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Margin" Value="0,0,0,6" />
+      <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="Slider">
+      <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+    <Style Selector="CheckBox">
+      <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+    <Style Selector="ComboBox">
+      <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="TabControl">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style Selector="TabControl > TabItem">
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="#9CA3AF" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Padding" Value="14,7" />
+      <Setter Property="Margin" Value="0,0,4,0" />
+      <Setter Property="MinHeight" Value="34" />
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="Transitions">
+        <Transitions>
+          <BrushTransition Property="Background" Duration="0:0:0.15" />
+          <BrushTransition Property="Foreground" Duration="0:0:0.15" />
+        </Transitions>
+      </Setter>
+    </Style>
+
+    <Style Selector="TabControl > TabItem:pointerover">
+      <Setter Property="Background" Value="#F3F4F6" />
+      <Setter Property="Foreground" Value="#374151" />
+    </Style>
+
+    <Style Selector="TabControl > TabItem:selected">
+      <Setter Property="Background" Value="#ECFDF5" />
+      <Setter Property="Foreground" Value="#065F46" />
+    </Style>
+
+    <Style Selector="TabControl > TabItem:selected:pointerover">
+      <Setter Property="Background" Value="#D1FAE5" />
+      <Setter Property="Foreground" Value="#064E3B" />
+    </Style>
+  </Window.Styles>
+
+  <Border Classes="panel" Margin="{Binding ToolboxWindowMargin}" Padding="12">
+    <Grid RowDefinitions="Auto,*">
+      <Grid ColumnDefinitions="*">
+        <StackPanel Spacing="6">
+          <TextBlock FontSize="22" FontWeight="Bold" Foreground="#111827" Text="工具箱" />
+        </StackPanel>
+      </Grid>
+
+      <TabControl Grid.Row="1" Margin="0,14,0,0">
+        <TabControl.Styles>
+          <Style Selector="TabControl /template/ ItemsPresenter">
+            <Setter Property="Margin" Value="0,0,0,12" />
+          </Style>
+          <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="#6B7280" />
+            <Setter Property="Background" Value="#F3F4F6" />
+            <Setter Property="Padding" Value="16,8" />
+            <Setter Property="Margin" Value="0,0,6,0" />
+            <Setter Property="MinHeight" Value="36" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Transitions">
+              <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.15" />
+                <BrushTransition Property="Foreground" Duration="0:0:0.15" />
+              </Transitions>
+            </Setter>
+          </Style>
+          <Style Selector="TabItem /template/ Border#PART_SelectedPipe">
+            <Setter Property="IsVisible" Value="False" />
+          </Style>
+
+          <Style Selector="TabItem /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+          </Style>
+          <Style Selector="TabItem:pointerover">
+            <Setter Property="Background" Value="#E5E7EB" />
+            <Setter Property="Foreground" Value="#1F2937" />
+          </Style>
+
+          <Style Selector="TabItem:pointerover TextBlock">
+            <Setter Property="Foreground" Value="#1F2937" />
+          </Style>
+          <Style Selector="TabItem:selected">
+            <Setter Property="Background" Value="#D1FAE5" />
+            <Setter Property="Foreground" Value="#064E3B" />
+          </Style>
+
+          <Style Selector="TabItem:selected TextBlock">
+            <Setter Property="Foreground" Value="#064E3B" />
+          </Style>
+
+          <Style Selector="TabItem:selected:pointerover">
+            <Setter Property="Background" Value="#BBF7D0" />
+            <Setter Property="Foreground" Value="#064E3B" />
+          </Style>
+
+          <Style Selector="TabItem:selected:pointerover TextBlock">
+            <Setter Property="Foreground" Value="#064E3B" />
+          </Style>
+          <Style Selector="TabItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#064E3B" />
+          </Style>
+        </TabControl.Styles>
+
+        <TabItem Header="整理">
+          <ScrollViewer Margin="{Binding ToolboxScrollMargin}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="12">
+              <Border Classes="pageHero" Padding="18">
+                <StackPanel Spacing="6">
+                  <TextBlock Classes="sectionTitle" Text="当前图片、筛图标记和基础筛选" />
+                </StackPanel>
+              </Border>
+
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="{Binding ToolboxSecondRowHeight}" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="{Binding ToolboxGapColumnWidth}" />
+                  <ColumnDefinition Width="{Binding ToolboxRightColumnWidth}" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Spacing="10">
+                <Border Classes="section" Padding="14">
+                  <StackPanel Spacing="10">
+                    <TextBlock Classes="cardTitle" Text="当前选中" />
+                    <TextBlock FontSize="20" FontWeight="SemiBold" Text="{Binding SelectedFileNameText}" TextWrapping="Wrap" />
+                    <TextBlock Classes="label" Text="{Binding SelectedPathText}" TextWrapping="Wrap" />
+                    <TextBlock Classes="label" Text="{Binding SelectedMetaText}" TextWrapping="Wrap" />
+                    <TextBlock Classes="label" Text="{Binding SelectedDimensionsText}" />
+                    <TextBlock Classes="label" Text="{Binding SelectedFormatText}" />
+                    <TextBlock Classes="label" Text="{Binding SelectedFolderText}" TextWrapping="Wrap" />
+                    <TextBlock Classes="label" Text="{Binding CurrentImagePositionText}" />
+                    <TextBlock Classes="label" Text="{Binding CurrentImageReviewText}" TextWrapping="Wrap" />
+                    <TextBlock Classes="label" Text="{Binding CurrentImageNavigationHintText}" TextWrapping="Wrap" />
+                    <Button
+                        HorizontalAlignment="Left"
+                        Content="打开所在文件夹"
+                        Click="OpenContainingFolderButton_OnClick"
+                        IsEnabled="{Binding CanOpenContainingFolder}" />
+                  </StackPanel>
+                </Border>
+
+                <Border Classes="section" Padding="14">
+                  <StackPanel Spacing="10">
+                    <TextBlock Classes="cardTitle" Text="选择操作" />
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
+                      <Button Content="全选" Click="SelectAllImagesButton_OnClick" IsEnabled="{Binding HasImages}" />
+                      <Button Grid.Column="1" Margin="10,0,0,0" Content="反选" Click="InvertSelectionButton_OnClick" IsEnabled="{Binding HasImages}" />
+                      <Button Grid.Row="1" Grid.ColumnSpan="2" Margin="0,10,0,0" Content="只保留当前" Click="KeepCurrentOnlyButton_OnClick" IsEnabled="{Binding HasBatchSelection}" />
+                    </Grid>
+                  </StackPanel>
+                </Border>
+
+                <Border Classes="section" Padding="14">
+                  <StackPanel Spacing="10">
+                    <TextBlock Classes="cardTitle" Text="更多筛选" />
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
+                      <StackPanel Spacing="6">
+                        <TextBlock Classes="label" Text="格式" />
+                        <ComboBox ItemsSource="{Binding FormatFilterOptions}" SelectedItem="{Binding SelectedFormatFilter}" />
+                      </StackPanel>
+                      <StackPanel Grid.Column="1" Margin="12,0,0,0" Spacing="6">
+                        <TextBlock Classes="label" Text="大小" />
+                        <ComboBox ItemsSource="{Binding SizeFilterOptions}" SelectedItem="{Binding SelectedSizeFilter}" />
+                      </StackPanel>
+                      <StackPanel Grid.Row="1" Margin="0,12,0,0" Spacing="6">
+                        <TextBlock Classes="label" Text="标记" />
+                        <ComboBox ItemsSource="{Binding ReviewFilterOptions}" SelectedItem="{Binding SelectedReviewFilter}" />
+                      </StackPanel>
+                      <StackPanel Grid.Row="1" Grid.Column="1" Margin="12,12,0,0" Spacing="6">
+                        <TextBlock Classes="label" Text="星级" />
+                        <ComboBox ItemsSource="{Binding RatingFilterOptions}" SelectedItem="{Binding SelectedRatingFilter}" />
+                      </StackPanel>
+                    </Grid>
+                  </StackPanel>
+                </Border>
+              </StackPanel>
+
+                <StackPanel
+                    Grid.Row="{Binding ToolboxRightPaneRow}"
+                    Grid.Column="{Binding ToolboxRightPaneColumn}"
+                    Margin="{Binding ToolboxRightPaneMargin}"
+                    Spacing="10">
+                <Border Classes="section" Padding="14">
+                  <StackPanel Spacing="10">
+                    <TextBlock Classes="cardTitle" Text="筛图标记" />
+                    <TextBlock Classes="label" Text="{Binding ReviewOverviewText}" TextWrapping="Wrap" />
+                    <TextBlock Classes="label" Text="{Binding ReviewActionScopeText}" TextWrapping="Wrap" />
+
+                    <Border Classes="toolbarSurface" Padding="14">
+                      <TextBlock Text="{Binding ReviewSelectionSummaryText}" TextWrapping="Wrap" />
+                    </Border>
+
+                    <WrapPanel Margin="0,2,0,0">
+                      <Button MinWidth="82" Margin="0,0,6,6" Content="标记保留" Click="MarkKeepButton_OnClick" IsEnabled="{Binding CanMarkSelection}" />
+                      <Button MinWidth="82" Margin="0,0,6,6" Content="标记待删" Click="MarkRejectButton_OnClick" IsEnabled="{Binding CanMarkSelection}" />
+                      <Button MinWidth="82" Margin="0,0,0,6" Content="清空标记" Click="ClearReviewStateButton_OnClick" IsEnabled="{Binding CanClearReviewState}" />
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0,2,0,0">
+                      <Button Classes="compact" MinWidth="48" Margin="0,0,6,6" Content="1 星" Click="SetRating1Button_OnClick" IsEnabled="{Binding CanMarkSelection}" />
+                      <Button Classes="compact" MinWidth="48" Margin="0,0,6,6" Content="2 星" Click="SetRating2Button_OnClick" IsEnabled="{Binding CanMarkSelection}" />
+                      <Button Classes="compact" MinWidth="48" Margin="0,0,6,6" Content="3 星" Click="SetRating3Button_OnClick" IsEnabled="{Binding CanMarkSelection}" />
+                      <Button Classes="compact" MinWidth="48" Margin="0,0,6,6" Content="4 星" Click="SetRating4Button_OnClick" IsEnabled="{Binding CanMarkSelection}" />
+                      <Button Classes="compact" MinWidth="48" Margin="0,0,6,6" Content="5 星" Click="SetRating5Button_OnClick" IsEnabled="{Binding CanMarkSelection}" />
+                      <Button Classes="compact" MinWidth="48" Margin="0,0,0,6" Content="清空" Click="ClearRatingButton_OnClick" IsEnabled="{Binding CanMarkSelection}" />
+                    </WrapPanel>
+                  </StackPanel>
+                </Border>
+                </StackPanel>
+              </Grid>
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+
+        <TabItem Header="批量">
+          <ScrollViewer Margin="{Binding ToolboxScrollMargin}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="12">
+              <Border Classes="pageHero" Padding="18">
+                <StackPanel Spacing="6">
+                  <TextBlock Classes="sectionTitle" Text="批量处理和统一输出" />
+                </StackPanel>
+              </Border>
+
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="{Binding ToolboxSecondRowHeight}" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="{Binding ToolboxBatchLeftColumnWidth}" />
+                  <ColumnDefinition Width="{Binding ToolboxGapColumnWidth}" />
+                  <ColumnDefinition Width="{Binding ToolboxBatchRightColumnWidth}" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Spacing="10">
+                <Border Classes="section" Padding="14">
+                  <StackPanel Spacing="10">
+                    <TextBlock Classes="cardTitle" Text="处理范围" />
+                    <CheckBox Content="处理当前列表全部图片" IsChecked="{Binding ProcessCurrentCollection}" />
+                    <TextBlock Classes="label" Text="{Binding OperationScopeSummaryText}" TextWrapping="Wrap" />
+                  </StackPanel>
+                </Border>
+
+                <Border Classes="section" Padding="14">
+                  <StackPanel Spacing="10">
+                    <TextBlock Classes="cardTitle" Text="重命名" />
+                    <StackPanel Spacing="6">
+                      <TextBlock Classes="label" Text="基础名称" />
+                      <TextBox Text="{Binding RenameBaseName}" />
+                    </StackPanel>
+                    <Grid ColumnDefinitions="1.1*,0.9*,0.9*">
+                      <StackPanel Spacing="6">
+                        <TextBlock Classes="label" Text="连接字符" />
+                        <TextBox MaxLength="8" Text="{Binding RenameSequenceSeparator}" />
+                      </StackPanel>
+                      <StackPanel Grid.Column="1" Margin="10,0,0,0" Spacing="6">
+                        <TextBlock Classes="label" Text="起始编号" />
+                        <TextBox Text="{Binding RenameStartNumberText}" />
+                      </StackPanel>
+                      <StackPanel Grid.Column="2" Margin="10,0,0,0" Spacing="6">
+                        <TextBlock Classes="label" Text="编号位数" />
+                        <TextBox Text="{Binding RenameNumberDigitsText}" />
+                      </StackPanel>
+                    </Grid>
+                    <Border Classes="toolbarSurface" Padding="14">
+                      <StackPanel Spacing="4">
+                        <TextBlock Classes="label" Text="预览" />
+                        <TextBlock Text="{Binding RenamePreviewText}" TextWrapping="Wrap" />
+                      </StackPanel>
+                    </Border>
+                    <Button Content="{Binding RenameActionText}" Click="RenameSelectedButton_OnClick" IsEnabled="{Binding CanRunRename}" />
+                  </StackPanel>
+                </Border>
+
+                <Border Classes="section" Padding="14">
+                  <StackPanel Spacing="10">
+                    <TextBlock Classes="cardTitle" Text="文件操作" />
+                    <WrapPanel>
+                      <Button MinWidth="82" Margin="0,0,6,6" Content="复制路径" Click="CopyPathButton_OnClick" IsEnabled="{Binding CanCopyOperationPaths}" />
+                      <Button MinWidth="110" Margin="0,0,6,6" Content="{Binding CopyToFolderActionText}" Click="CopyToFolderButton_OnClick" IsEnabled="{Binding CanCopyToFolder}" />
+                      <Button MinWidth="110" Margin="0,0,6,6" Content="{Binding MoveToFolderActionText}" Click="MoveToFolderButton_OnClick" IsEnabled="{Binding CanMoveToFolder}" />
+                      <Button MinWidth="110" Margin="0,0,0,6" Content="{Binding RecycleToTrashActionText}" Click="RecycleToTrashButton_OnClick" IsEnabled="{Binding CanRecycleToTrash}" />
+                    </WrapPanel>
+                  </StackPanel>
+                </Border>
+              </StackPanel>
+
+                <StackPanel
+                    Grid.Row="{Binding ToolboxRightPaneRow}"
+                    Grid.Column="{Binding ToolboxRightPaneColumn}"
+                    Margin="{Binding ToolboxRightPaneMargin}"
+                    Spacing="10">
+                <Border Classes="section" Padding="14">
+                  <StackPanel Spacing="10">
+                    <TextBlock Classes="cardTitle" Text="共享输出设置" />
+                    <StackPanel Spacing="6">
+                      <TextBlock Classes="label" Text="输出目录" />
+                      <Grid ColumnDefinitions="*,Auto">
+                        <TextBox Text="{Binding ExportDestinationFolder}" Watermark="留空时按当前处理范围自动推导" />
+                        <Button Grid.Column="1" Margin="10,0,0,0" Content="选择..." Click="ChooseExportFolderButton_OnClick" />
+                      </Grid>
+                      <TextBlock Classes="label" Text="{Binding ResolvedExportDestinationFolder}" TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Spacing="6">
+                      <CheckBox Content="导出时按基础名重命名" IsChecked="{Binding RenameExportOutputs}" />
+                      <TextBlock Classes="label" Text="{Binding ExportRenamePreviewText}" TextWrapping="Wrap" />
+                    </StackPanel>
+                  </StackPanel>
+                </Border>
+
+                <Border Classes="section" Padding="14">
+                  <StackPanel Spacing="10">
+                    <TextBlock Classes="cardTitle" Text="格式转换" />
+                    <Grid ColumnDefinitions="1.2*,0.8*">
+                      <StackPanel Spacing="6">
+                        <TextBlock Classes="label" Text="输出格式" />
+                        <ComboBox ItemsSource="{Binding ExportFormats}" SelectedItem="{Binding SelectedExportFormat}">
+                          <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                              <TextBlock Text="{Binding Label}" />
+                            </DataTemplate>
+                          </ComboBox.ItemTemplate>
+                        </ComboBox>
+                      </StackPanel>
+                      <StackPanel Grid.Column="1" Margin="10,0,0,0" Spacing="6">
+                        <TextBlock Classes="label" Text="质量" />
+                        <TextBox Text="{Binding ExportJpegQualityText}" />
+                      </StackPanel>
+                    </Grid>
+                    <Grid ColumnDefinitions="Auto,*">
+                      <CheckBox Content="限制长边" IsChecked="{Binding LimitExportLongEdge}" />
+                      <TextBox
+                          Grid.Column="1"
+                          Margin="12,0,0,0"
+                          IsEnabled="{Binding LimitExportLongEdge}"
+                          Text="{Binding ExportLongEdgeText}"
+                                            Watermark="例如 2560" />
+                    </Grid>
+                    <CheckBox Content="导出时清理信息" IsChecked="{Binding StripMetadataOnExport}" />
+                    <Button Content="{Binding ExportActionText}" Click="ExportSelectedButton_OnClick" IsEnabled="{Binding CanRunExport}" />
+                  </StackPanel>
+                </Border>
+
+                <Grid>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="{Binding ToolboxSecondRowHeight}" />
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="{Binding ToolboxGapColumnWidth}" />
+                    <ColumnDefinition Width="{Binding ToolboxRightColumnWidth}" />
+                  </Grid.ColumnDefinitions>
+                  <Border Classes="section" Padding="14">
+                    <StackPanel Spacing="10">
+                                            <TextBlock Classes="cardTitle" Text="专业压缩" />
+                      <CheckBox Content="按目标体积压缩（JPG / WEBP / AVIF / JXL / HEIC）" IsChecked="{Binding UseTargetSizeCompression}" />
+                      <StackPanel Spacing="8" IsVisible="{Binding ShowTargetSizeCompressionSettings}">
+                        <Grid ColumnDefinitions="*,*">
+                          <StackPanel Spacing="6">
+                            <TextBlock Classes="label" Text="目标体积 KB" />
+                            <TextBox Text="{Binding TargetSizeKilobytesText}" />
+                          </StackPanel>
+                          <StackPanel Grid.Column="1" Margin="10,0,0,0" Spacing="6">
+                            <TextBlock Classes="label" Text="质量上限" />
+                            <TextBox Text="{Binding ExportJpegQualityText}" />
+                          </StackPanel>
+                        </Grid>
+                        <TextBlock
+                            Classes="label"
+                            Text="从质量上限开始压缩。"
+                            TextWrapping="Wrap" />
+                      </StackPanel>
+                      <StackPanel Spacing="6" IsVisible="{Binding ShowCompressionPresetSettings}">
+                                                <TextBlock Classes="label" Text="压缩档位" />
+                        <ComboBox ItemsSource="{Binding CompressionPresetOptions}" SelectedItem="{Binding SelectedCompressionPreset}">
+                          <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                              <StackPanel Spacing="2">
+                                <TextBlock Text="{Binding Label}" />
+                                <TextBlock Classes="label" FontSize="11" Text="{Binding Description}" TextWrapping="Wrap" />
+                              </StackPanel>
+                            </DataTemplate>
+                          </ComboBox.ItemTemplate>
+                        </ComboBox>
+                      </StackPanel>
+                      <TextBlock Classes="label" Text="{Binding CompressionModeSummaryText}" TextWrapping="Wrap" />
+                      <Button Content="{Binding CompressButtonText}" Click="CompressSelectedButton_OnClick" IsEnabled="{Binding CanRunCompress}" />
+                    </StackPanel>
+                  </Border>
+
+                  <Border
+                      Grid.Row="{Binding ToolboxRightPaneRow}"
+                      Grid.Column="{Binding ToolboxRightPaneColumn}"
+                      Margin="{Binding ToolboxRightPaneMargin}"
+                      Classes="section"
+                      Padding="12">
+                    <StackPanel Spacing="10">
+                      <TextBlock Classes="cardTitle" Text="清理信息" />
+                      <CheckBox Content="只清理信息，不重新编码（JPG / PNG）" IsChecked="{Binding PreserveEncodedDataWhenCleaning}" />
+                      <Button Content="{Binding CleanMetadataActionText}" Click="CleanMetadataButton_OnClick" IsEnabled="{Binding CanRunCleanMetadata}" />
+                    </StackPanel>
+                  </Border>
+                </Grid>
+
+                <Border Classes="section" Padding="14">
+                  <StackPanel Spacing="10">
+                                            <TextBlock Classes="cardTitle" Text="EXIF 信息" />
+                    <Grid ColumnDefinitions="*,*">
+                      <CheckBox Content="清理全部元数据" IsChecked="{Binding ExifStripAllMetadata}" />
+                      <CheckBox Grid.Column="1" Margin="10,0,0,0" Content="移除 GPS 位置" IsChecked="{Binding ExifRemoveGps}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,*,*">
+                      <StackPanel Spacing="6">
+                        <TextBlock Classes="label" Text="作者" />
+                        <TextBox Text="{Binding ExifAuthorText}" Watermark="可留空" />
+                      </StackPanel>
+                      <StackPanel Grid.Column="1" Margin="8,0,0,0" Spacing="6">
+                                                <TextBlock Classes="label" Text="版权" />
+                        <TextBox Text="{Binding ExifCopyrightText}" Watermark="可留空" />
+                      </StackPanel>
+                      <StackPanel Grid.Column="2" Margin="8,0,0,0" Spacing="6">
+                        <TextBlock Classes="label" Text="备注" />
+                        <TextBox Text="{Binding ExifCommentText}" Watermark="可留空" />
+                      </StackPanel>
+                    </Grid>
+                    <Grid ColumnDefinitions="Auto,*">
+                                                    <CheckBox Content="拍摄时间偏移" IsChecked="{Binding ExifShiftDateTime}" />
+                      <TextBox Grid.Column="1" Margin="12,0,0,0" Text="{Binding ExifDateTimeOffsetMinutesText}" Watermark="分钟，可填负数，例如 -480" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,Auto">
+                      <TextBlock Classes="label" Text="{Binding ExifEditSummaryText}" TextWrapping="Wrap" />
+                      <Button Grid.Column="1" Margin="10,0,0,0" Content="{Binding ExifEditActionText}" Click="EditExifButton_OnClick" IsEnabled="{Binding CanRunExifEdit}" />
+                    </Grid>
+                  </StackPanel>
+                </Border>
+
+                <Border Classes="section" Padding="14">
+                  <StackPanel Spacing="10">
+                    <TextBlock Classes="cardTitle" Text="批量水印" />
+                    <Grid ColumnDefinitions="*,*">
+                      <CheckBox Content="使用图片水印" IsChecked="{Binding UseImageWatermark}" />
+                      <StackPanel Grid.Column="1" Margin="10,0,0,0" Spacing="6">
+                        <TextBlock Classes="label" Text="水印位置" />
+                        <ComboBox ItemsSource="{Binding WatermarkPlacementOptions}" SelectedItem="{Binding SelectedWatermarkPlacement}">
+                          <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                              <TextBlock Text="{Binding Label}" />
+                            </DataTemplate>
+                          </ComboBox.ItemTemplate>
+                        </ComboBox>
+                      </StackPanel>
+                    </Grid>
+                    <StackPanel Spacing="6" IsVisible="{Binding ShowTextWatermarkSettings}">
+                      <TextBlock Classes="label" Text="文字内容" />
+                      <TextBox Text="{Binding WatermarkText}" Watermark="例如品牌名、作者名、文件用途" />
+                      <Grid ColumnDefinitions="*,*,*,*">
+                        <StackPanel Spacing="6">
+                          <TextBlock Classes="label" Text="字号" />
+                          <TextBox Text="{Binding WatermarkTextSizeText}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="8,0,0,0" Spacing="6">
+                          <TextBlock Classes="label" Text="颜色" />
+                          <TextBox Text="{Binding WatermarkTextColor}" Watermark="#FFFFFF" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Margin="8,0,0,0" Spacing="6">
+                          <TextBlock Classes="label" Text="透明度 %" />
+                          <TextBox Text="{Binding WatermarkOpacityText}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="3" Margin="8,0,0,0" Spacing="6">
+                          <TextBlock Classes="label" Text="边距" />
+                          <TextBox Text="{Binding WatermarkMarginText}" />
+                        </StackPanel>
+                      </Grid>
+                    </StackPanel>
+                    <StackPanel Spacing="6" IsVisible="{Binding ShowImageWatermarkSettings}">
+                      <TextBlock Classes="label" Text="图片水印" />
+                      <Grid ColumnDefinitions="*,Auto">
+                        <TextBox Text="{Binding WatermarkImagePath}" Watermark="选择 PNG、WEBP、JPG 等水印图片" />
+                        <Button Grid.Column="1" Margin="10,0,0,0" Content="选择..." Click="ChooseWatermarkImageButton_OnClick" />
+                      </Grid>
+                      <Grid ColumnDefinitions="*,*,*">
+                        <StackPanel Spacing="6">
+                          <TextBlock Classes="label" Text="大小 %" />
+                          <TextBox Text="{Binding WatermarkImageScaleText}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="8,0,0,0" Spacing="6">
+                          <TextBlock Classes="label" Text="透明度 %" />
+                          <TextBox Text="{Binding WatermarkOpacityText}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Margin="8,0,0,0" Spacing="6">
+                          <TextBlock Classes="label" Text="边距" />
+                          <TextBox Text="{Binding WatermarkMarginText}" />
+                        </StackPanel>
+                      </Grid>
+                    </StackPanel>
+                    <Grid ColumnDefinitions="*,Auto">
+                      <TextBlock Classes="label" Text="{Binding WatermarkSummaryText}" TextWrapping="Wrap" />
+                      <Button Grid.Column="1" Margin="10,0,0,0" Content="{Binding WatermarkActionText}" Click="AddWatermarkButton_OnClick" IsEnabled="{Binding CanRunWatermark}" />
+                    </Grid>
+                  </StackPanel>
+                </Border>
+                </StackPanel>
+              </Grid>
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+
+        <TabItem Header="工具">
+          <ScrollViewer Margin="{Binding ToolboxScrollMargin}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="12">
+              <Border Classes="pageHero" Padding="18">
+                <StackPanel Spacing="6">
+                  <TextBlock Classes="sectionTitle" Text="播放、对比和执行状态" />
+                </StackPanel>
+              </Border>
+
+              <Border Classes="section" Padding="14">
+                <StackPanel Spacing="10">
+                  <TextBlock Classes="cardTitle" Text="幻灯片" />
+                  <Grid ColumnDefinitions="*,*,*">
+                    <Button Content="上一张" Click="PreviousSlideshowButton_OnClick" IsEnabled="{Binding CanStepSlideshow}" />
+                    <Button Grid.Column="1" Margin="8,0,0,0" Content="{Binding SlideshowToggleText}" Click="ToggleSlideshowButton_OnClick" IsEnabled="{Binding CanStartSlideshow}" />
+                    <Button Grid.Column="2" Margin="8,0,0,0" Content="下一张" Click="NextSlideshowButton_OnClick" IsEnabled="{Binding CanStepSlideshow}" />
+                  </Grid>
+                  <Grid ColumnDefinitions="Auto,*,Auto">
+                                            <TextBlock VerticalAlignment="Center" Classes="label" Text="播放间隔" />
+                    <Slider Grid.Column="1" Margin="12,0,12,0" Minimum="2" Maximum="12" Value="{Binding SlideshowIntervalSeconds, Mode=TwoWay}" />
+                    <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding SlideshowIntervalText}" />
+                  </Grid>
+                  <Grid ColumnDefinitions="*,*">
+                    <CheckBox Content="随机播放" IsChecked="{Binding IsSlideshowShuffleEnabled}" />
+                    <CheckBox Grid.Column="1" Content="循环播放" IsChecked="{Binding IsSlideshowLoopEnabled}" />
+                  </Grid>
+                  <TextBlock Classes="label" Text="{Binding SlideshowStatusText}" TextWrapping="Wrap" />
+                </StackPanel>
+              </Border>
+
+                <Border Classes="section" Padding="14">
+                  <StackPanel Spacing="10">
+                                            <TextBlock Classes="cardTitle" Text="对比查看" />
+                  <Grid ColumnDefinitions="*,*,*">
+                    <Button Content="{Binding AddCurrentToCompareActionText}" Click="AddCurrentToCompareButton_OnClick" IsEnabled="{Binding CanAddCurrentToCompare}" />
+                    <Button Grid.Column="1" Margin="8,0,0,0" Content="移除当前图" Click="RemoveCurrentFromCompareButton_OnClick" IsEnabled="{Binding CanRemoveCurrentFromCompare}" />
+                    <Button Grid.Column="2" Margin="8,0,0,0" Content="清空对比区" Click="ClearCompareButton_OnClick" IsEnabled="{Binding CanClearCompare}" />
+                  </Grid>
+                  <Grid ColumnDefinitions="Auto,*,Auto">
+                    <TextBlock VerticalAlignment="Center" Classes="label" Text="统一缩放" />
+                    <Slider Grid.Column="1" Margin="12,0,12,0" Minimum="25" Maximum="300" Value="{Binding CompareZoomPercent, Mode=TwoWay}" />
+                    <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding CompareZoomText}" />
+                  </Grid>
+                  <TextBlock Classes="label" Text="{Binding CompareSummaryText}" TextWrapping="Wrap" />
+                </StackPanel>
+              </Border>
+
+              <Border Classes="section" Padding="14">
+                <StackPanel Spacing="10">
+                  <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Classes="cardTitle" Text="执行状态" />
+                    <Button
+                        Grid.Column="1"
+                        MinWidth="72"
+                        Content="取消"
+                        Click="CancelOperationButton_OnClick"
+                        IsEnabled="{Binding CanCancelOperation}"
+                        IsVisible="{Binding CanCancelOperation}" />
+                  </Grid>
+                  <ProgressBar
+                      Height="10"
+                      Minimum="0"
+                      Maximum="{Binding OperationProgressMaximum}"
+                      Value="{Binding OperationProgressValue}"
+                      IsVisible="{Binding IsExportProcessing}" />
+                  <TextBlock
+                      HorizontalAlignment="Right"
+                      Classes="label"
+                      IsVisible="{Binding IsExportProcessing}"
+                      Text="{Binding OperationProgressCountText}" />
+                  <TextBlock Classes="label" Text="{Binding OperationStatusText}" TextWrapping="Wrap" />
+                  <Border Classes="toolbarSurface" Padding="14">
+                    <StackPanel Spacing="4">
+                                            <TextBlock Classes="cardTitle" Text="性能保护" />
+                      <TextBlock Classes="label" Text="{Binding BatchPerformanceGuardText}" TextWrapping="Wrap" />
+                    </StackPanel>
+                  </Border>
+                  <TextBlock
+                      Classes="label"
+                      IsVisible="{Binding HasBatchFailures}"
+                      Text="{Binding BatchResultSummaryText}"
+                      TextWrapping="Wrap" />
+                  <ItemsControl
+                      MaxHeight="150"
+                      IsVisible="{Binding HasBatchFailures}"
+                      ItemsSource="{Binding BatchFailures}">
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate>
+                        <TextBlock
+                            Classes="label"
+                            Margin="0,0,0,4"
+                            Text="{Binding SummaryText}"
+                            TextWrapping="Wrap" />
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+                </StackPanel>
+              </Border>
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+
+        <TabItem Header="设置">
+          <ScrollViewer Margin="{Binding ToolboxScrollMargin}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="12">
+              <Border Classes="pageHero" Padding="18">
+                <StackPanel Spacing="6">
+                  <TextBlock Classes="sectionTitle" Text="显示、播放和性能偏好" />
+                </StackPanel>
+              </Border>
+
+              <Border Classes="section" Padding="14">
+                <StackPanel Spacing="10">
+                  <TextBlock Classes="cardTitle" Text="界面显示" />
+                  <CheckBox Content="显示左侧缩略图栏" IsChecked="{Binding IsSidebarVisible}" />
+                  <CheckBox Content="显示右侧信息面板" IsChecked="{Binding IsInspectorVisible}" />
+                  <CheckBox Content="显示底部胶片栏" IsChecked="{Binding IsFilmstripVisible}" />
+                  <CheckBox Content="打开文件夹时包含子文件夹" IsChecked="{Binding IncludeSubfolders}" />
+                </StackPanel>
+              </Border>
+
+              <Border Classes="section" Padding="14">
+                <StackPanel Spacing="10">
+                  <TextBlock Classes="cardTitle" Text="播放设置" />
+                  <Grid ColumnDefinitions="*,*">
+                    <CheckBox Content="随机播放" IsChecked="{Binding IsSlideshowShuffleEnabled}" />
+                    <CheckBox Grid.Column="1" Content="循环播放" IsChecked="{Binding IsSlideshowLoopEnabled}" />
+                  </Grid>
+                  <Grid ColumnDefinitions="Auto,*,Auto">
+                                            <TextBlock VerticalAlignment="Center" Classes="label" Text="播放间隔" />
+                    <Slider Grid.Column="1" Margin="12,0,12,0" Minimum="2" Maximum="12" Value="{Binding SlideshowIntervalSeconds, Mode=TwoWay}" />
+                    <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding SlideshowIntervalText}" />
+                  </Grid>
+                  <TextBlock Classes="label" Text="{Binding SlideshowStatusText}" TextWrapping="Wrap" />
+                </StackPanel>
+              </Border>
+              <Border Classes="section" Padding="14">
+                <StackPanel Spacing="10">
+                  <TextBlock Classes="cardTitle" Text="性能模式" />
+                  <ComboBox
+                      ItemsSource="{Binding ProcessingPerformanceModeOptions}"
+                      SelectedItem="{Binding SelectedProcessingPerformanceModeOption, Mode=TwoWay}" />
+                  <TextBlock
+                      Classes="label"
+                      Text="{Binding ProcessingPerformanceModeSummaryText}"
+                      TextWrapping="Wrap" />
+                </StackPanel>
+              </Border>
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+
+        <TabItem Header="对比">
+          <Grid Margin="{Binding ToolboxScrollMargin}" RowDefinitions="Auto,*">
+            <Border Classes="pageHero" Padding="18">
+              <StackPanel Spacing="6">
+                <TextBlock Classes="sectionTitle" Text="多图细节对比" />
+              </StackPanel>
+            </Border>
+            <ScrollViewer
+                Grid.Row="1"
+                Margin="0,14,0,0"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Disabled">
+              <StackPanel Spacing="10">
+                <TextBlock
+                    IsVisible="{Binding ShowCompareEmptyState}"
+                    
+                    Text="{Binding CompareEmptyText}"
+                    TextWrapping="Wrap" />
+                <ItemsControl IsVisible="{Binding HasCompareItems}" ItemsSource="{Binding CompareItems}">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <Border Width="{Binding DataContext.ToolboxCompareItemWidth, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Margin="0,0,10,0" Classes="section" Padding="14">
+                        <StackPanel Spacing="10">
+                          <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                            <Border Padding="8,4" CornerRadius="6" Background="#ECFDF5">
+                              <TextBlock FontSize="11" FontWeight="SemiBold" Foreground="#059669" Text="{Binding RoleLabel}" />
+                            </Border>
+                            <TextBlock Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" Text="{Binding FileName}" TextTrimming="CharacterEllipsis" />
+                            <Button Grid.Column="2" Margin="8,0,0,0" Classes="compact" Content="设为主图" Click="PromoteCompareItemButton_OnClick" IsEnabled="{Binding CanPromote}" />
+                            <Button Grid.Column="3" Margin="8,0,0,0" Classes="compact" Content="移除" Click="RemoveCompareItemButton_OnClick" />
+                          </Grid>
+                          <Border Height="{Binding DataContext.ToolboxComparePreviewHeight, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Classes="viewport" Padding="12">
+                            <Grid>
+                              <ScrollViewer
+                                  IsVisible="{Binding HasPreview}"
+                                  Loaded="ComparePaneScrollViewer_OnLoaded"
+                                  Unloaded="ComparePaneScrollViewer_OnUnloaded"
+                                  HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Auto"
+                                  PointerPressed="ComparePaneScrollViewer_OnPointerPressed"
+                                  PointerWheelChanged="ComparePaneScrollViewer_OnPointerWheelChanged"
+                                  ScrollChanged="ComparePaneScrollViewer_OnScrollChanged">
+                                <Image
+                                    Source="{Binding PreviewBitmap}"
+                                    Width="{Binding DisplayWidth}"
+                                    Height="{Binding DisplayHeight}"
+                                    Stretch="Fill" />
+                              </ScrollViewer>
+                              <StackPanel
+                                  IsVisible="{Binding ShowPreviewPlaceholder}"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  MaxWidth="220"
+                                  Spacing="6">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    FontSize="16"
+                                    FontWeight="SemiBold"
+                                    Foreground="#FFFFFF"
+                                    Text="{Binding StatusText}"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Classes="viewportMuted"
+                                    Text="{Binding DetailsText}"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap" />
+                              </StackPanel>
+                            </Grid>
+                          </Border>
+                          <TextBlock Classes="label" Text="{Binding DetailsText}" TextWrapping="Wrap" />
+                          <TextBlock Classes="label" Text="{Binding FolderPath}" TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                      </Border>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </StackPanel>
+            </ScrollViewer>
+          </Grid>
+        </TabItem>
+
+        <TabItem Header="总览">
+          <Grid Margin="{Binding ToolboxScrollMargin}" RowDefinitions="Auto,*">
+            <Border Classes="pageHero" Padding="18">
+              <StackPanel Spacing="6">
+                <TextBlock Classes="sectionTitle" Text="联系表快速浏览" />
+              </StackPanel>
+            </Border>
+            <ScrollViewer
+                Grid.Row="1"
+                Margin="0,14,0,0"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+              <StackPanel Spacing="10">
+                <TextBlock
+                    IsVisible="{Binding ShowContactSheetEmptyState}"
+                    
+                    Text="{Binding ContactSheetEmptyText}"
+                    TextWrapping="Wrap" />
+                <ItemsControl IsVisible="{Binding HasContactSheetItems}" ItemsSource="{Binding ContactSheetItems}">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <WrapPanel />
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <Button
+                          Margin="0,0,10,10"
+                          Padding="0"
+                          Background="Transparent"
+                          BorderBrush="Transparent"
+                          HorizontalContentAlignment="Stretch"
+                          VerticalContentAlignment="Stretch"
+                          Click="FocusContactSheetImageButton_OnClick">
+                        <Border
+                            Width="{Binding DataContext.ContactSheetTileWidth, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                            Classes="section"
+                            Padding="12">
+                          <StackPanel Spacing="10">
+                            <Border
+                                Height="{Binding DataContext.ContactSheetTileHeight, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                Classes="viewport"
+                                ClipToBounds="True">
+                              <Grid>
+                                <Image IsVisible="{Binding HasThumbnail}" Source="{Binding Thumbnail}" Stretch="Uniform" />
+                                <StackPanel
+                                    IsVisible="{Binding ShowThumbnailPlaceholder}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Spacing="2">
+                                  <TextBlock HorizontalAlignment="Center" FontWeight="SemiBold" Foreground="#FFFFFF" Text="{Binding ThumbnailPlaceholderText}" />
+                                  <TextBlock HorizontalAlignment="Center" Classes="viewportMuted" FontSize="11" Text="{Binding ThumbnailHintText}" />
+                                </StackPanel>
+                              </Grid>
+                            </Border>
+                            <TextBlock FontWeight="SemiBold" Text="{Binding FileName}" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Classes="label" Text="{Binding SizeText}" />
+                          </StackPanel>
+                        </Border>
+                      </Button>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </StackPanel>
+            </ScrollViewer>
+          </Grid>
+        </TabItem>
+
+        <TabItem Header="查重">
+          <Grid Margin="{Binding ToolboxScrollMargin}" RowDefinitions="Auto,Auto,*">
+            <Border Classes="pageHero" Padding="18">
+              <StackPanel Spacing="6">
+                <TextBlock Classes="sectionTitle" Text="{Binding ImageMatchPanelTitle}" />
+              </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" Margin="0,14,0,0" Classes="section" Padding="14">
+              <StackPanel Spacing="10">
+                <Grid ColumnDefinitions="*,*,Auto">
+                  <Button Content="查找完全重复" Click="FindExactDuplicatesButton_OnClick" IsEnabled="{Binding CanRunExactDuplicateScan}" />
+                  <Button Grid.Column="1" Margin="8,0,0,0" Content="查找相似图" Click="FindSimilarImagesButton_OnClick" IsEnabled="{Binding CanRunSimilarImageScan}" />
+                  <Button Grid.Column="2" Margin="8,0,0,0" Classes="compact" Content="清空结果" Click="ClearImageMatchesButton_OnClick" IsEnabled="{Binding CanClearImageMatchResults}" />
+                </Grid>
+                <Grid ColumnDefinitions="Auto,*">
+                  <TextBlock VerticalAlignment="Center" Classes="label" Text="相似阈值" />
+                  <ComboBox Grid.Column="1" Margin="12,0,0,0" ItemsSource="{Binding ImageMatchThresholdOptions}" SelectedItem="{Binding SelectedImageMatchThresholdOption}">
+                    <ComboBox.ItemTemplate>
+                      <DataTemplate>
+                        <TextBlock Text="{Binding Label}" />
+                      </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                  </ComboBox>
+                </Grid>
+                <TextBlock Classes="label" Text="{Binding SimilarThresholdHintText}" TextWrapping="Wrap" />
+              </StackPanel>
+            </Border>
+
+            <ScrollViewer
+                Grid.Row="2"
+                Margin="0,14,0,0"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+              <StackPanel Spacing="10">
+                <TextBlock
+                    IsVisible="{Binding ShowImageMatchEmptyState}"
+                    
+                    Text="{Binding ImageMatchEmptyText}"
+                    TextWrapping="Wrap" />
+                <ItemsControl IsVisible="{Binding HasImageMatchGroups}" ItemsSource="{Binding ImageMatchGroups}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <Border Classes="section" Padding="14">
+                        <StackPanel Spacing="10">
+                          <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+                            <StackPanel Spacing="4">
+                              <TextBlock FontWeight="SemiBold" Text="{Binding Title}" />
+                              <TextBlock Classes="label" Text="{Binding Subtitle}" TextWrapping="Wrap" />
+                              <TextBlock Classes="label" Text="{Binding FolderLabel}" TextWrapping="Wrap" />
+                              <TextBlock Classes="label" Text="{Binding ReferenceLabel}" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <Button
+                                Grid.Column="1"
+                                Margin="10,0,0,0"
+                                Classes="compact"
+                                Content="{Binding SelectionActionText}"
+                                Click="SelectImageMatchGroupButton_OnClick" />
+                            <Button
+                                Grid.Column="2"
+                                Margin="10,0,0,0"
+                                Classes="compact"
+                                IsVisible="{Binding IsExactDuplicateGroup}"
+                                Content="回收建议项"
+                                Click="RecycleImageMatchGroupButton_OnClick" />
+                            <Button
+                                Grid.Column="3"
+                                Margin="10,0,0,0"
+                                Classes="compact"
+                                IsVisible="{Binding IsSimilarGroup}"
+                                Content="确认本组"
+                                Click="ConfirmImageMatchGroupButton_OnClick" />
+                          </Grid>
+                          <ItemsControl ItemsSource="{Binding Items}">
+                            <ItemsControl.ItemTemplate>
+                              <DataTemplate>
+                                <Border Classes="listItem" Padding="8">
+                                  <Grid ColumnDefinitions="72,*,Auto,Auto">
+                                    <Border
+                                        Width="72"
+                                        Height="72"
+                                        Classes="viewport"
+                                        ClipToBounds="True">
+                                      <Grid>
+                                        <Image IsVisible="{Binding ThumbnailItem.HasThumbnail}" Source="{Binding ThumbnailItem.Thumbnail}" Stretch="UniformToFill" />
+                                        <StackPanel
+                                            IsVisible="{Binding ThumbnailItem.ShowThumbnailPlaceholder}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Spacing="2">
+                                          <TextBlock HorizontalAlignment="Center" FontWeight="SemiBold" Foreground="#FFFFFF" Text="{Binding ThumbnailItem.ThumbnailPlaceholderText}" />
+                                          <TextBlock HorizontalAlignment="Center" Classes="viewportMuted" FontSize="11" Text="{Binding ThumbnailItem.ThumbnailHintText}" />
+                                        </StackPanel>
+                                      </Grid>
+                                    </Border>
+                                    <StackPanel Grid.Column="1" Margin="10,0,0,0" Spacing="4" VerticalAlignment="Center">
+                                      <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <Border Padding="8,4" CornerRadius="6" Background="#ECFDF5">
+                                          <TextBlock FontSize="11" FontWeight="SemiBold" Foreground="#059669" Text="{Binding RoleLabel}" />
+                                        </Border>
+                                        <Border
+                                            IsVisible="{Binding IsSuggestedKeep}"
+                                            Padding="8,4"
+                                            CornerRadius="6"
+                                            Background="#F1F8F2">
+                                          <TextBlock FontSize="11" FontWeight="SemiBold" Foreground="#277044" Text="建议保留" />
+                                        </Border>
+                                      </StackPanel>
+                                      <TextBlock FontWeight="SemiBold" Text="{Binding FileName}" TextTrimming="CharacterEllipsis" />
+                                      <TextBlock Classes="label" Text="{Binding FolderPath}" TextTrimming="CharacterEllipsis" />
+                                      <TextBlock Classes="label" Text="{Binding SelectionSummaryText}" TextWrapping="Wrap" />
+                                    </StackPanel>
+                                    <Button
+                                        Grid.Column="2"
+                                        Margin="8,0,0,0"
+                                        Classes="compact"
+                                        Content="定位"
+                                        Click="FocusMatchedImageButton_OnClick" />
+                                    <Button
+                                        Grid.Column="3"
+                                        Margin="8,0,0,0"
+                                        Classes="compact"
+                                        Content="{Binding KeepActionText}"
+                                        Click="SelectImageMatchItemReferenceButton_OnClick" />
+                                  </Grid>
+                                </Border>
+                              </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                          </ItemsControl>
+                        </StackPanel>
+                      </Border>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </StackPanel>
+            </ScrollViewer>
+          </Grid>
+        </TabItem>
+
+        <TabItem Header="最近">
+          <ScrollViewer Margin="{Binding ToolboxScrollMargin}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="12">
+              <Border Classes="pageHero" Padding="18">
+                <StackPanel Spacing="6">
+                  <TextBlock Classes="sectionTitle" Text="最近打开记录" />
+                </StackPanel>
+              </Border>
+
+              <Grid ColumnDefinitions="*,Auto">
+                <Button
+                    Grid.Column="1"
+                    Classes="compact"
+                    Content="清空记录"
+                    Click="ClearRecentSessionsButton_OnClick"
+                    IsEnabled="{Binding CanClearRecentSessions}" />
+              </Grid>
+              <TextBlock
+                  IsVisible="{Binding ShowRecentSessionsEmptyState}"
+                  
+                  Text="还没有最近打开记录。"
+                  TextWrapping="Wrap" />
+              <ItemsControl IsVisible="{Binding HasRecentSessions}" ItemsSource="{Binding RecentSessions}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Border Margin="0,0,0,10" Classes="section" Padding="14">
+                      <StackPanel Spacing="10">
+                        <Grid ColumnDefinitions="*,Auto">
+                          <TextBlock FontWeight="SemiBold" Text="{Binding Label}" TextTrimming="CharacterEllipsis" />
+                          <TextBlock Grid.Column="1" Classes="label" Text="{Binding OpenedAtText}" />
+                        </Grid>
+                        <TextBlock Classes="label" Text="{Binding Subtitle}" TextWrapping="Wrap" />
+                        <Grid ColumnDefinitions="Auto,Auto,Auto">
+                          <Button Classes="compact" Content="重新打开" Click="OpenRecentSessionButton_OnClick" />
+                          <Button Grid.Column="1" Margin="8,0,0,0" Classes="compact" Content="{Binding PinActionText}" Click="ToggleRecentSessionPinnedButton_OnClick" />
+                          <Button Grid.Column="2" Margin="8,0,0,0" Classes="compact" Content="移除" Click="RemoveRecentSessionButton_OnClick" />
+                        </Grid>
+                      </StackPanel>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+
+        <TabItem Header="快捷键">
+          <ScrollViewer Margin="{Binding ToolboxScrollMargin}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="12">
+              <Border Classes="pageHero" Padding="18">
+                <StackPanel Spacing="6">
+                  <TextBlock Classes="sectionTitle" Text="键盘操作总览" />
+                </StackPanel>
+              </Border>
+
+              <Border Classes="section" Padding="14">
+                <StackPanel Spacing="10">
+                  <TextBlock Classes="cardTitle" Text="浏览图片" />
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="← / ↑ / PageUp" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="上一张图片" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="→ / ↓ / PageDown" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="下一张图片" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="Home / End" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="跳到当前列表第一张 / 最后一张" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="P" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="播放或暂停幻灯片" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="Delete" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="当前图片移到回收站" TextWrapping="Wrap" />
+                  </Grid>
+                </StackPanel>
+              </Border>
+
+              <Border Classes="section" Padding="14">
+                <StackPanel Spacing="10">
+                  <TextBlock Classes="cardTitle" Text="预览操作" />
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="Space" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="切换适应窗口和当前缩放" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="F" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="适应窗口；对比模式下重置对比缩放" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="A" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="切到 100% 实际大小" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="+ / -" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="放大 / 缩小当前预览" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="Ctrl / Command + 鼠标滚轮" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="按滚轮方向缩放预览" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="Q / E" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="左转 / 右转当前预览" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="H" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="水平镜像当前预览" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="L" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="切换长图阅读模式" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="Z" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="复位旋转、镜像和缩放" TextWrapping="Wrap" />
+                  </Grid>
+                </StackPanel>
+              </Border>
+
+              <Border Classes="section" Padding="14">
+                <StackPanel Spacing="10">
+                  <TextBlock Classes="cardTitle" Text="界面与面板" />
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="F11 / Esc" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="进入沉浸模式 / 退出沉浸模式" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="S / I" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="显示或隐藏左侧缩略图 / 图片信息面板" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="G / D" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="联系表 / 对比模式" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="Ctrl / Command + B" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="显示或隐藏底部胶片栏" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="Ctrl / Command + Shift + B" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="打开工具箱" TextWrapping="Wrap" />
+                  </Grid>
+                </StackPanel>
+              </Border>
+
+              <Border Classes="section" Padding="14">
+                <StackPanel Spacing="10">
+                  <TextBlock Classes="cardTitle" Text="文件与标记" />
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="Ctrl / Command + O" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="打开图片" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="Ctrl / Command + Shift + O" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="打开文件夹" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="K / X / C" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="标记保留 / 标记待删 / 清空标记" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="1 - 5" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="设置当前选中图片星级" TextWrapping="Wrap" />
+                  </Grid>
+                  <Grid ColumnDefinitions="170,*">
+                    <TextBlock FontWeight="SemiBold" Text="0" />
+                    <TextBlock Grid.Column="1" Classes="label" Text="清空当前选中图片星级" TextWrapping="Wrap" />
+                  </Grid>
+                </StackPanel>
+              </Border>
+
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+
+        <TabItem Header="关于">
+          <ScrollViewer Margin="{Binding ToolboxScrollMargin}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="12">
+              <Border Classes="pageHero" Padding="18">
+                <StackPanel Spacing="6">
+                  <TextBlock FontSize="24" FontWeight="SemiBold" Foreground="#059669" Text="灵简图片助手" />
+                </StackPanel>
+              </Border>
+
+              <Border Classes="section" Padding="14">
+                <StackPanel Spacing="10">
+                  <TextBlock Classes="cardTitle" Text="软件说明" />
+                  <TextBlock Classes="label" Text="本软件是开源软件，由启灵生态出品。" TextWrapping="Wrap" />
+                  <Grid ColumnDefinitions="Auto,*">
+                    <TextBlock Classes="label" Text="当前版本" />
+                    <TextBlock Grid.Column="1" Margin="16,0,0,0" FontWeight="SemiBold" Text="V1.6" />
+                  </Grid>
+                </StackPanel>
+              </Border>
+
+              <Border Classes="section" Padding="14">
+                <StackPanel Spacing="10">
+                  <TextBlock Classes="cardTitle" Text="联系信息" />
+                  <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
+                    <TextBlock Classes="label" Text="微信 / QQ" />
+                    <TextBlock Grid.Column="1" Margin="16,0,0,0" FontWeight="SemiBold" Text="19577566" />
+                    <TextBlock Grid.Row="1" Margin="0,10,0,0" Classes="label" Text="官网" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Margin="16,10,0,0" FontWeight="SemiBold" Text="qiling.jingxialai.com" />
+                  </Grid>
+                </StackPanel>
+              </Border>
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+      </TabControl>
+    </Grid>
+  </Border>
+</Window>
+
+
+
