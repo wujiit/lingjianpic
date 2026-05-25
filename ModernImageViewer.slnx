@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ModernImageViewer.Core/ModernImageViewer.Core.csproj" />
+    <Project Path="src/ModernImageViewer.Desktop/ModernImageViewer.Desktop.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ModernImageViewer.PerfTests/ModernImageViewer.PerfTests.csproj" />
+    <Project Path="tests/ModernImageViewer.Tests/ModernImageViewer.Tests.csproj" />
+  </Folder>
+</Solution>
